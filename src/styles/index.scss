@@ -1,0 +1,481 @@
+@import "variables";
+@import '~bootstrap/scss/bootstrap';
+
+* {
+   padding: 0;
+   margin: 0;
+   transition: all 0.2s ease-in-out;
+   font-family: "Open Sans", sans-serif;
+}
+::selection {
+   background-color: $primary-color;
+   color: white;
+}
+html,
+body,
+#root,
+.App {
+   height: 100%;
+}
+html {
+   scroll-behavior: smooth;
+}
+.App {
+   color: $grey6;
+
+   /* ******* PARTIALS******** */
+   /*elements*/
+   ul {
+      padding-left: 0;
+      list-style-type: none;
+   }
+   a {
+      text-decoration: none;
+      
+      &:hover{
+         color: $primary-color;
+      }
+      &:focus-visible {
+         outline: none;
+      }
+   }
+   button {
+      border: none;
+      border-radius: $br;
+      background-color: transparent;
+      padding: 5px;
+
+      &:focus,
+      &:active,
+      &:focus-visible {
+         outline: none;
+      }
+      &:hover {
+         background-color: transparent;
+      }
+   }
+   img {
+      max-width: 100%;
+   }
+   .icon {
+      width: 1rem;
+      min-width: 1rem;
+      height: 1rem;
+      min-height: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.5;
+
+      &.big {
+         width: 1.75rem;
+         min-width: 1.75rem;
+         height: 1.75rem;
+         min-height: 1.75rem;
+         opacity: 0.5;
+      }
+   }
+   .dropdown-menu {
+      transition: 0s all ease !important;
+      background-color: $grey1;
+
+      a.dropdown-item {
+         font-size: 0.9rem;
+
+         &:hover {
+            background-color: white;
+         }
+      }
+   }
+   .divider {
+      width: 90%;
+      height: 1px;
+      min-height: 1px;
+      background-color: $grey2;
+      margin: 0.75rem auto 0.75rem auto;
+   }
+   .create-edit-form {
+      width: 100%;
+      display: flex;
+      gap: 0.5rem;
+      position: relative;
+
+      input {
+         border: $border-light;
+         border-radius: $br;
+         font-size: 0.9rem;
+         color: $grey6;
+         width: 100%;
+         padding: 0.67rem 0.75rem;
+         margin:4px 0;
+
+         &:hover,
+         &:focus,
+         &:focus-visible,
+         &:active {
+            outline: none;
+         }
+         &::placeholder {
+            color: $grey3;
+         }
+      }
+      button[type="submit"] {
+         position: absolute;
+         right: 0.5rem;
+         top: 50%;
+         transform: translateY(-50%);
+
+         .icon {
+            opacity: 0.4;
+         }
+      }
+   }
+   .empty-img{
+      filter: invert(0) brightness(1);
+   }
+   .dark-mode-btn{
+      gap: 1rem;
+
+      #dark-mode{
+         cursor: pointer;
+         width: 4em;
+         margin-left: -2.7em;
+         height: 1.5rem;
+
+         &:focus, &:focus-visible{
+            outline: none;
+            box-shadow: none;
+            border: $border-light;
+         }
+      }
+   }
+   /* scrollbar */
+   ::-webkit-scrollbar {
+      width: 7px;
+      max-height: 7px;
+   }
+   ::-webkit-scrollbar-track {
+      background-color: transparent;
+
+   }
+   ::-webkit-scrollbar-thumb {
+      background: rgba(119, 119, 119, 0.5);
+      cursor: pointer;
+      border-radius: 5px;
+   }
+   /*utility classes*/
+   .border-all {
+      border: $border-light  !important;
+   }
+   .border-top {
+      border-top: $border-light  !important;
+   }
+   .border-bottom {
+      border-bottom: $border-light  !important;
+   }
+   .border-left {
+      border-left: $border-light  !important;
+   }
+   .border-right {
+      border-right: $border-light  !important;
+   }
+   .border-radius {
+      border-radius: $br;
+   }
+   .grey2-bg {
+      background-color: $grey1;
+   }
+   .primary-bg {
+      background-color: white;
+   }
+   .secondary-bg{
+      background-color: $grey1;
+   }
+   .text-middle {
+      color: $grey3;
+   }
+   .text-primary-color {
+      color: $primary-color !important;
+   }
+   .opacity-3 {
+      opacity: 0.3;
+   }
+
+   /******* DOM *******/
+   .main-wrapper {
+      #sidebar {
+         width: $sidebar-width;
+         padding: $section-padding;
+
+         &.collapsed {
+            margin-left: -$sidebar-width;
+         }
+         .sidebar-section {
+            .sidebar-section-name {
+               color: $grey3;
+               font-size: 0.8rem;
+               font-weight: 700;
+
+               span{
+                  color: inherit;
+               }
+            }
+            .sidebar-section-list {
+               .sidebar-section-list-item {
+                  font-size: 0.9rem;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  gap: 0.8rem;
+                  width: 100%;
+                  border-radius: $br;
+                  margin-bottom: 1px;
+                  cursor: pointer;
+
+                  &:hover,
+                  &:focus,
+                  &:active {
+                     background-color: $grey2;
+                  }
+                  span {
+                     flex-grow: 1;
+                     color: $grey6;
+                  }
+                  &.active {
+                     background-color: $grey2;
+
+                     .item-title {
+                        font-weight: 600;
+                        color: $primary-color;
+                     }
+                  }
+               }
+            }
+         }
+      }
+      #main-content {
+         min-width: 50%;
+         padding: $section-padding;
+
+         header {
+            gap: 1rem;
+
+            .header-title {
+               font-size: 1.3rem;
+               font-weight: 600;
+            }
+         }
+         .task-row {
+            width: 100%;
+            border-radius: $br;
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+
+            &:last-child {
+               border-bottom: none !important;
+            }
+            &:hover {
+               background-color: $grey2;
+            }
+            .task-checkbox {
+               background-color: white;
+               border-radius: $br;
+               border: $checkbox-border;
+               width: 19px;
+               height: 19px;
+               padding: 0;
+               position: relative;
+               cursor: pointer;
+
+               &:focus, &:focus-visible{
+                  outline: none;
+                  box-shadow: none;
+               }
+               &:before,
+               &:after {
+                  content: "";
+                  position: absolute;
+               }
+               &:before {
+                  width: 5px;
+                  height: 2.5px;
+                  background-color: white;
+                  border-radius: 1px;
+                  transform: rotate(45deg);
+                  left: 20%;
+                  top: 50%;
+                  opacity: 0;
+               }
+               &:after {
+                  width: 10px;
+                  height: 2.5px;
+                  background-color: white;
+                  border-radius: 1px;
+                  transform: rotate(135deg);
+                  left: 32%;
+                  top: 44%;
+                  opacity: 0;
+               }
+            }
+            &.checked {
+               .task-checkbox {
+                  background-color: $grey3;
+
+                  &:before,
+                  &:after {
+                     opacity: 1;
+                  }
+                  &:hover {
+                     background-color: $primary-color;
+                  }
+               }
+               span {
+                  text-decoration: line-through;
+                  color: $grey3;
+               }
+            }
+            span{
+               color: $grey6;
+            }
+         }
+      }
+   }
+
+   /******** DARK MODE ********/
+   &.dark{
+      color: $grey1;
+
+      /*partials*/
+      .icon{
+         filter: invert(1) brightness(2);
+      }
+      .dropdown-menu{
+         background-color: $grey6;
+         border: $border-dark;
+
+         a.dropdown-item{
+            color: $grey3;
+
+            &:hover {
+               background-color: $grey5;
+               color: $grey2;
+            }
+         }
+      }
+      .divider{
+         background-color: $grey5;
+      }
+      .create-edit-form{
+         input{
+            background-color: $grey6;
+            color: $grey1;
+            border: $border-dark;
+
+            &::placeholder {
+               color: $grey4;
+            }
+         }
+      }
+      .dark-mode-btn{
+         #dark-mode{
+            &:focus, &:focus-visible, &:active{
+               border: $border-dark;
+            }
+            &:checked{
+               background-color: $grey5;
+               border: $border-dark;
+            }
+         }
+      }
+      .primary-bg {
+         background-color: $grey6;
+      }
+      .secondary-bg{
+         background-color: $grey5;
+      }
+      .border-all {
+         border: $border-dark !important;
+      }
+      .border-top {
+         border-top: $border-dark !important;
+      }
+      .border-bottom {
+         border-bottom: $border-dark !important;
+      }
+      .border-left {
+         border-left: $border-dark !important;
+      }
+      .border-right {
+         border-right: $border-dark !important;
+      }
+      .empty-img{
+         filter: invert(1) brightness(1);
+      }
+      /*DOM*/
+      #sidebar{
+         .sidebar-section{
+            .sidebar-section-name{
+               color: $grey4;
+            }
+            .sidebar-section-list{
+               .sidebar-section-list-item{
+                  &:hover,
+                        &:focus,
+                        &:active {
+                           background-color: $grey5;
+                        }
+                        span {
+                           color: $grey1;
+                        }
+                        &.active {
+                           background-color: $grey5;
+                        }
+               }
+            }
+         }
+      }
+      #main-content{
+         .task-row{
+
+            &:hover {
+               background-color: $grey5;
+            }
+            .task-checkbox{
+               background-color: $grey6;
+            }
+            span{
+               color: $grey1;
+            }
+            &.checked{
+               .task-checkbox {
+                  background-color: $grey4;
+               }
+               span {
+                  color: $grey4;
+               }
+            }
+         }
+      }
+   }
+}
+
+@media only screen and (max-width: 768px) {
+   #sidebar {
+      position: absolute;
+      margin-left: -$sidebar-width !important;
+      z-index: 10;
+      height: 100%;
+
+      &.collapsed {
+         margin-left: 0 !important;
+      }
+   }
+   #main-content {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+   }
+}
